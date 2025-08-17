@@ -11,7 +11,7 @@ app.get('/', (req, res) => {
 
 // TODO: Add routes
 
-const PORT = process.env.PORT || 5001;
+const PORT = 5001;
 
 sequelize.sync().then(() => {
   app.listen(PORT, () => {
