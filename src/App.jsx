@@ -1,24 +1,32 @@
-import { useState } from 'react'
 import './App.css'
+import { Flex } from "@chakra-ui/react"
 import { Login } from './components/login'
+import TeamJoin from './components/TeamJoin'
+import HomePage from './components/HomePage'
+import { useState } from 'react'
+import { generateRandomUsername } from './utils/randomName'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [username, setUsername] = useState(null);
+
+  const handleGuest = () => setUsername(generateRandomUsername());
+  const handleEmail = () => setUsername('User'); // placeholder until auth
+
+  if (username) {
+    return <HomePage username={username} onLogout={() => setUsername(null)} />;
+  }
 
   return (
     <>
-      <h1>Vite + React</h1>
+      <h1>Connection Game</h1>
       <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-        <Login />
+        <Flex justify="center" gap="4">
+          <Login onGuest={handleGuest} onEmail={handleEmail} />
+          <TeamJoin />
+        </Flex>
       </div>
     </>
-  )
+  );
 }
 
 export default App
